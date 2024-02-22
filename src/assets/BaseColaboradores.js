@@ -25,4 +25,3 @@ export const BaseColaboradores = [
     },
 ]
 
-export default BaseColaboradores
