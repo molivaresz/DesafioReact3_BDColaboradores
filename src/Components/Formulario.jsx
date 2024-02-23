@@ -18,13 +18,16 @@ const Formulario = (props) => {
         e.preventDefault()
 
         if(nombre != '' && email != '' && edad != '' && cargo != '' && telefono != '') {
-          setError(props.msgexito)
-          setColorError('success')
+            props.hACollaborators(nombre, email, edad, cargo, telefono)
+
+            setError(props.msgexito)
+            setColorError('success')
         } else {
             setError(props.msgerror1)
             setColorError('danger')
         }
     }
+
 
     return (
         <>

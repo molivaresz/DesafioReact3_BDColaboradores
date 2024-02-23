@@ -1,9 +1,13 @@
-import React from 'react'
+import Alert from 'react-bootstrap/Alert';
 
-const Alert = () => {
-  return (
-    <div>Alert</div>
-  )
+const Alerta = (props) => {
+    return (
+        <>
+        <Alert key={props.coloralerta} variant={props.coloralerta}>
+            {props.msgalerta}
+        </Alert>
+        </>
+    )
 }
 
-export default Alert
+    export default Alerta
