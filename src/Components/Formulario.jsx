@@ -28,7 +28,6 @@ const Formulario = (props) => {
         }
     }
 
-
     return (
         <>
         <Container>

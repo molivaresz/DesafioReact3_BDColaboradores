@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Buscador = () => {
+const Buscador = (props) => {
   return (
-    <div>Buscador</div>
+    <>
+    <form>
+      <input type="text" placeholder="Busca un colaborador" onChange={(event) => props.hASearch(event.target.value)} />
+    </form>
+    </>
   )
 }
 

@@ -1,5 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Buscador from './Components/Buscador';
 import { BaseColaboradores } from './assets/BaseColaboradores';
 import { EnColaboradores } from './assets/EnColaboradores';
 import Listado from './Components/Listado';
@@ -15,7 +16,8 @@ function App() {
   const [msgerror1, setMsgerror1] = useState('Todos los campos son obligatorios')
   const [colaboradores, setColaboradores] = useState([])
   const [encabezado, setEncabezado] = useState([])
-
+  const [search, setSearch] = useState('')
+  const [colaboradoresUpd, setColaboradoresUpd] = useState([])
 
 
   const handleAddCollaborators = (nombre, email, edad, cargo, telefono) => {
@@ -29,13 +31,32 @@ function App() {
     collaboratorsUpdate.push({ id: String(newId), nombre: nombre, correo: email, edad: edad, cargo: cargo, telefono: telefono})
 
     setColaboradores(collaboratorsUpdate)
+    setColaboradoresUpd(collaboratorsUpdate)
+  }
+
+  const handleSearch = (valor) => {
+    setSearch(valor)
   }
 
   useEffect(() => {
-    setColaboradores(BaseColaboradores)
-    setEncabezado(EnColaboradores)
-  }, []) //SOLO PRIMERA CARGA
+    if (colaboradores == "" && colaboradoresUpd == "") {
+      setColaboradores(BaseColaboradores)
+      setEncabezado(EnColaboradores)
+    } else if (colaboradoresUpd == "") {
+      setColaboradoresUpd(colaboradores)
+    } else {
+    setColaboradores(colaboradoresUpd)
+    }
+    if (search != "") {
+      setColaboradores(colaboradores.filter((colaborador) => 
+      colaborador.nombre.includes(search) || 
+      colaborador.correo.includes(search) ||
+      colaborador.edad.includes(search) || 
+      colaborador.cargo.includes(search) || 
+      colaborador.telefono.includes(search) ))
+    } 
 
+  }, [search])
 
   return (
     <>
@@ -43,6 +64,9 @@ function App() {
       <Row className='bg-secondary p-2 m-1 justify-content-md-center'>
         <Col className='text-center p-2'>
           <h1>Lista de colaboradores</h1>
+          <Buscador
+          hASearch={handleSearch}
+          />
           <Listado
           Bcolaboradores={colaboradores}
           EColaboradores={encabezado}
